@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+    {% block content %}
+        <div class="search">
+            <form method="GET">
+                {% csrf_token %}
+                <input type="text" class="form-control search_input" placeholder="поиск" name="search_person">
+                <input type="submit" class="btn btn-primary" value="Поиск">
+            </form>
+        </div>
+        <div class="search_center">
+            <table class="table table-bordered table-hover">
+                <tr class="tr_no_hover">
+                    <th>Фото</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Внут.АТС</th>
+                    <th>Гор.АТС</th>
+                    <th>Email</th>
+                    <th>Каб.</th>
+                </tr>
+                {% for user in users_main %}
+                <tr>
+                    <td> <img src="{% if user.image %}{{ user.image.url  }}{% else %} {% static 'main/img/1.png' %} {% endif %}" class="person_img"> </td>
+                    <td class="align-middle">{{ user.name }}</td>
+                    <td class="align-middle">{{ user.job }} / {{ user.name_job }}</td>
+                    <td class="align-middle text-center">{{ user.vnut_atc }}</td>
+                    <td class="align-middle text-center">{{ user.phone }}</td>
+                    <td class="align-middle"><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                    <td class="align-middle text-center">{{ user.room }}</td>
+                </tr>
+                {% endfor %}
+                {% for user in users %}
+                <tr>
+                    <td> <img src="{% if user.image %}{{ user.image.url  }}{% else %} {% static 'main/img/1.png' %} {% endif %}" class="person_img"> </td>
+                    <td class="align-middle">{{ user.name }}</td>
+                    <td class="align-middle">{{ user.job }} / {{ user.name_otdel.name_job }}</td>
+                    <td class="align-middle text-center">{{ user.vnut_atc }}</td>
+                    <td class="align-middle text-center">{{ user.gor_atc }}</td>
+                    <td class="align-middle"><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                    <td class="align-middle text-center">{{ user.room }}</td>
+                </tr>
+                {% endfor %}       
+            </table>
+        </div>
+    {% endblock %}

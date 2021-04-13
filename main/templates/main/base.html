@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+
+</head>
+<body>
+    <img src="{% static 'img/fon.svg' %}" id="fon_img">
+    <nav>
+        <div class="nav_left">
+            {% url 'main' as main %}
+            <h3> <a class="main_logo_text" href="{{ main }}"> Министерство экономики и финансов Кыргызской Республики</a></h3>
+        </div>
+        <div class="nav_right">
+            
+            <a class="nav_list_item {% if request.path == main %} nav_active {% endif %}"  href="{{ main }}">Главная</a>
+            {% url 'item_1' as profcom %}
+            <div class="nav_list_item {% if request.path == profcom %} nav_active {% endif %}" id="prof_id">
+                Профком
+                <svg version="1.1" id="icon_prof" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="10px" fill="white" height="10px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg>
+                <div class="prof_group">
+                    <a href="{% url 'item_1' %}"><p class="prof_items">Мероприятие</p></a>
+                    <a href="{% url 'item_2' %}"><p class="prof_items">Опросник</p></a>
+                    <a href="{% url 'item_3' %}"><p class="prof_items">Объявление</p></a>
+                </div>
+            </div>
+            {% url 'npa' as npa %}
+            <a class="nav_list_item {% if request.path == npa %} nav_active {% endif %}" href="{{ npa }}">НПА</a>
+            {% url 'search' as search %}
+            <a class="nav_list_item {% if request.path == search %} nav_active {% endif %}" href="{{ search }}">Поиск</a>
+            {% url 'jurnal' as jurnal %}
+            {% url 'auto_register' as auto_register %}
+            <a class="nav_list_item {% if request.path == jurnal %} nav_active {% endif %}" href="{% if request.user.is_authenticated %}{{ jurnal }}{% else %}{{ auto_register }}{% endif %}">Журнал выездов</a>
+        </div>
+    </nav>
+
+    <script>
+        $('#prof_id').click(function(){
+            
+            if($('.prof_items').css('display') == 'none'){
+                $('#icon_prof').css({'transform': 'rotate(-180deg)', 'transition': 'all 0.5s'});
+                $('.prof_group').css({'border-right':'1px solid silver','border-bottom':'1px solid silver','border-left':'1px solid silver'});
+            }
+            else {
+                $('#icon_prof').css('transform','rotate(0deg)');
+                $('.prof_group').css('border','none');
+            }
+            $('.prof_group').css('display', 'block');
+            $('.prof_items').slideToggle(300);
+        });
+    </script>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
