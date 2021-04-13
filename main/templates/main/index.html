@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+    {% block content %}
+        <div class="main_left">
+            <h4>Структура</h4>
+            <div class="main_list_shadow">
+                {% for name_job in name_jobs %}
+                    <div class="main_list">
+                        <a class="text_a" url='{{ name_job.id }}'>{{ name_job.name_job }}</a>
+                        <div class="div_icon" url='{{ name_job.id }}'><img src="{% static 'img/icon_open.svg' %}"></div>
+                    </div>
+                    <div class="{{ name_job.id }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="main_right">
+            <div class="reclama">
+                <h4>Объявления</h4>
+                {% for i in reclama %}
+                <div class="reclama_item">
+                    <img src="{{ i.img.url }}">
+                    <p><a href="{{ i.category.url }}">{{ i.title }}</a></p>
+                </div>
+                {% endfor %}
+            </div>
+            <table id="table" class="table  table-hover ">
+                
+            </table>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        var s = 0;
+        jQuery('.div_icon').click(
+            function(){
+                var id = $(this).attr('url')
+
+                for(q=0; q<900; q++){
+                    $('.main_list').css('background-color','rgba(255, 255, 255, 0.2)');
+                    $('.div_icon').find('img').css({'transform':'rotate(0deg)'})
+                    $('.'+q).slideUp('1000', function(){
+                        $('.'+q).empty();
+                    });
+                }
+                
+                if($('.'+id).html().length==0){
+                    $(this).find('img').css({'transform':'rotate(90deg)'});
+                    $(this).parent().css('background-color','#8fa3c7');
+                }
+                $.ajax({
+                    url: '',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response){
+                        if($('.'+id).html().length==0){
+                            $('.'+id).append(response).hide().slideDown('1000')
+                        }
+                        else{
+                            $('.'+id).slideUp('1000', function(){
+                                $('.'+id).empty()
+                            })
+                        }
+                    }
+                });
+                s = id;
+            }
+        );
+
+        jQuery('.text_a').click(
+            function(){
+                $('.main_left').css('width','34%');
+                $('.main_right').css('width','60%');
+                $('.reclama').css('display','none');
+                for(q=0; q<900; q++){
+                    $('.main_list').css('background-color','rgba(255, 255, 255, 0.2)');
+                    $('.div_icon').find('img').css({'transform':'rotate(0deg)'})
+                    $('.'+q).slideUp('1000', function(){
+                        $('.'+q).empty();
+                    });
+                }
+                $(this).parent().css('background-color','#8fa3c7');
+                $('#table').empty()
+                var id = $(this).attr('url')
+                $.ajax({
+                    url: 'table',
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response){
+                        $('#table').append(response)
+                    }
+                })
+            }
+        )
+
+    </script>
+    {% endblock %}
+    

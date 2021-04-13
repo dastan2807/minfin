@@ -1,0 +1,94 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    
+<div class="npa_left">
+
+    <form>
+        {% csrf_token %}
+        {{ search_npa_d.form.name }}
+        {{ search_npa_d.form.number }}
+        {{ search_npa_d.form.date }}
+        <input type="submit" class="btn btn-primary" value="Поиск">
+    </form>
+
+    <table class="table table-bordered table-hover ">
+        {% if npa_doc_object.count != document_list.count and document_list.count != 0 %}
+            <tr>
+                <td colspan="3" class="npa_table bg" ><h5>Результат поиска <span>({{ document_list.count }})</span></h5></td>
+            </tr>
+            <tr>
+                <th class="npa_table">Название</th>
+                <th class="npa_table" width="20%">№</th>
+                <th class="npa_table" width="20%">Дата</th>
+            </tr>
+            {% for p in document_list %}
+                <tr url="{{ p.id }}" class="search_item">
+                    <td>{{ p.name }} / <strong>{{ p.category }}</strong></td>
+                    <td class="align-middle text-center">{{ p.number }}</td>
+                    <td class="align-middle text-center">{{ p.date|date:'d-m-Y' }}</td>
+                </tr>
+            {% endfor %}
+        {% elif document_list.count == 0 %}
+            <tr>
+                <td colspan="3" class="npa_table bg ne_naiden"><h5>Не найден!</h5></td>
+            </tr>
+        {% endif %}
+        {% for i in category_list %}
+            <tr>
+                <td colspan="3" class="npa_table bg category_list" url='{{ i.id }}'><h5>{{ i.name }} <span>({{ i.npa_category.all.count }})</span></h5></td>
+            </tr>
+            <tbody class='npa_tr category{{ i.id }}'></tbody>
+        {% endfor %}
+    </table> 
+</div>
+
+
+<div class="npa_right">
+    
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>  
+        jQuery('.category_list').click(
+            function(){
+                var id = $(this).attr('url')
+                $.ajax({
+                    url: "" ,
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response){
+                        if($('.category'+id).html().length==0){
+                            $('.category'+id).append(response).hide().show('300');
+                            // $(response).appendTo('.category'+id).hide().show('1000');
+                            
+                        }
+                        else{
+                            $('.category'+id).empty()
+                        }
+                        
+                    }
+                })
+            }
+        );
+        jQuery('.search_item').click(
+            function(){
+                $('.npa_right').empty();
+                var id = $(this).attr('url');
+                $.ajax({
+                        url: '{% url "pdf" %}',
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(response){
+                            $('.npa_right').append(response)
+                        }
+                    });
+            }
+        );
+        
+    </script>
+{% endblock %}

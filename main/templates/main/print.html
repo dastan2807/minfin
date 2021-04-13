@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% load static %}
+    {% block content %}
+        <div class="main_print">
+            <button class="btn btn-success" id="pechat2">Печать</button>
+            <table class="print_table" id="table_print2" >
+                <style>
+                    table tr td, table tr th{
+                        border:1px solid black;
+                        
+                          
+                    }
+                    table tr td{
+                        padding-left:10px;
+                    }
+                    table tr .pad, table tr th, .print_name_otdel,.print_name_job{
+                        text-align: center;
+                        padding:0;
+                    }
+
+                </style>
+                        {% for a in main_person %}
+                        <tr>
+                            <td colspan="6" class="print_name_job">{{ a.name_job.name_job }}</td>
+                        </tr>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Должность</th>
+                            <th>Внут АТС</th>
+                            <th>Гор АТС</th>
+                            <th>Email</th>
+                            <th>Кабинет</th>
+                        </tr>
+                        <tr>
+                            <td>{{ a.name }}</td>
+                            <td>{{ a.job }}</td>
+                            <td class="text-center pad">{{ a.vnut_atc }}</td>
+                            <td class="text-center pad">{{ a.phone }}</td>
+                            <td>{{ a.email }}</td>
+                            <td class="text-center pad">{{ a.room }}</td>
+                        </tr>
+                        {% for i in a.name_job.name_job_otdel.all %}
+                        <tr >
+                            <td colspan="6" class="print_name_otdel">{{ i.name_otdel }}</td>
+                        </tr>
+                        {% for p in i.person_otdel.all %}
+                        <tr >
+                            <td>{{ p.name }}</td>
+                            <td>{{ p.job }}</td>
+                            <td class="text-center pad">{{ p.vnut_atc }}</td>
+                            <td class="text-center pad">{{ p.gor_atc }}</td>
+                            <td>{{ p.email }}</td>
+                            <td class="text-center pad">{{ p.room }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                        {% endfor %}
+               
+            </table>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            jQuery('#pechat2').click(
+                    function(){
+                        var printmi = document.getElementById('table_print2');
+                        printmi.style.cssText='border-collapse: collapse;';
+                        var wme = window.open("", "", "width=900, height=700");
+                        wme.document.write(printmi.outerHTML);
+                        wme.document.close();
+                        wme.focus();
+                        wme.print();
+                        wme.close();
+                    }
+                );
+        </script>
+    {% endblock %}
+    

@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+    {% block content %}
+
+        <div class="opros_left">
+            <h4>Опросы</h4>
+            <div>
+                {% for i in opros_list %}
+                <div class="opros_list" url="{{ i.id }}">
+                    <a>{{ i.title }}</a>
+                    <div class="div_date"> {{ i.date|date:'d.m.Y' }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="opros_right"> 
+            {% if alert %}
+                <p>Вы можете голосовать только один раз!!!</p>
+            {% endif %}
+        </div>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            jQuery('.opros_list').click(
+                function(){
+                    $('.opros_right').empty()
+                    var id = $(this).attr('url')
+                    $.ajax({
+                        url: "{% url 'item_2' %}" ,
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        success: function(response){
+                            $('.opros_right').append(response)
+                        }
+                    })
+                }
+            );
+        </script>
+     
+    
+    {% endblock %}

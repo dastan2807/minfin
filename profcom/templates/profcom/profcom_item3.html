@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+{% load static %}
+    {% block content %}
+
+        <div class="reclama_left">
+            <h4>Объявления</h4>
+            <div>
+                {% for i in reclama %}
+                <div class="reclama_list" url="{{ i.id }}">
+                    <a>{{ i.title }}</a>
+                    <div class="div_date"> {{ i.date|date:'d.m.Y' }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="reclama_right"> 
+
+        </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        jQuery('.reclama_list').click(
+            function(){
+                $('.reclama_right').empty()
+                var id = $(this).attr('url')
+                $.ajax({
+                    url: "{% url 'item_3' %}" ,
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success: function(response){
+                        $('.reclama_right').append(response)
+                    }
+                })
+            }
+        );
+    </script>
+     
+    
+    {% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+
+    
+    <div class="jurnal_center">
+        <a href="{% url 'logout_page' %}"><button type="submit" class="btn btn-danger btn-exit">Выйти</button></a><br><br>
+
+        {% if request.user == jurnal_admin %}
+
+        <div class="jurnal_item">
+            <form id="jurnal_form" method="GET" class="form-inline">
+                {% csrf_token %}
+                <td>{{ search_filter.form.start_date }}</td>
+                <td>{{ search_filter.form.end_date }}</td>
+                <td>{{ search_filter.form.name_job }}</td>
+                <td>{{ search_filter.form.name }}</td>
+                <button form="jurnal_form" type="submit" class="btn btn-primary btn_jurnal">Поиск</button>
+            </form>
+            <br>
+            
+            <table class="table table-bordered table-hover" id="table_print">
+                <style>
+                    table tr td,table tr th{
+                        border:1px solid black
+                    }
+                </style>
+                <tr class="nohover">
+                    <td colspan="7">
+                        <p><strong>Журнал Админ</strong></p>
+                    </td>
+                </tr>
+                <tr class="nohover">
+                    <th class="align-middle text-center" width="50px">№</th>
+                    <th class="align-middle text-center" width="100px" >Дата</th>
+                    <th class="align-middle text-center" >Наименование подразделении</th>
+                    <th class="align-middle text-center">ФИО</th>
+                    <th class="align-middle text-center">Причина выезда </th>
+                    <th class="align-middle text-center" width="100px">Отметка об убытии</th>
+                    <th class="align-middle text-center" width="100px">Отметка о прибытии </th>
+                </tr>
+                {% for i in jurnals %}
+                <tr>
+                    <td class="align-middle text-center">{{ forloop.counter }}</td>
+                    <td class="align-middle text-center" >{{ i.date|date:'d-m-Y' }}</td>
+                    <td class="align-middle">{{ i.name_job }}</td>
+                    <td class="align-middle">{{ i.name }}</td>
+                    <td class="align-middle">{{ i.text_prich }}</td>
+                    <td class="align-middle text-center" >{{ i.time_exit }}</td>
+                    <td class="align-middle text-center">{{ i.time_enter }}</td>
+                </tr>
+                {% endfor %}
+            </table><br>
+            <button id="pechat" type="button" class="btn btn-success btn_jurnal">Печать</button>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+            <script>
+                jQuery('#pechat').click(
+                    function(){
+                        var printmi = document.getElementById('table_print');
+                        printmi.style.cssText='border-collapse: collapse;';
+                        var wme = window.open("", "", "width=900, height=700");
+                        wme.document.write(printmi.outerHTML);
+                        wme.document.close();
+                        wme.focus();
+                        wme.print();
+                        wme.close();
+                    }
+                );
+            </script>
+        </div>
+
+        {% else %}
+        <br>
+        <div class="jurnal_item">
+            <table class="table table-bordered table-hover ">
+                <tr class="nohover">
+                    <td colspan="7">
+                        <p><strong>{{ main_person.name }}</strong></p>
+                    </td>
+                </tr>
+                <tr class="nohover">
+                    <th class="align-middle text-center " width="50px">№</th>
+                    <th class="align-middle text-center" width="100px">Дата</th>
+                    <th class="align-middle text-center">Наименование подразделении</th>
+                    <th class="align-middle text-center">ФИО</th>
+                    <th class="align-middle text-center">Причина выезда </th>
+                    <th class="align-middle text-center" width="100px">Отметка об убытии</th>
+                    <th class="align-middle text-center" width="100px">Отметка о прибытии </th>
+                </tr>
+                {% for i in jurnal_list %}
+                <tr>
+                    <td class="align-middle text-center">{{ forloop.counter }}</td>
+                    <td class="align-middle text-center" >{{ i.date|date:'d-m-Y' }}</td>
+                    <td class="align-middle">{{ i.name_job }}</td>
+                    <td class="align-middle">{{ i.name }}</td>
+                    <td class="align-middle">{{ i.text_prich }}</td>
+                    <td class="align-middle text-center" >{{ i.time_exit }}</td>
+                    <td class="align-middle text-center">{{ i.time_enter }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="nohover">
+                    <td colspan="7"></td>
+                </tr>           
+                <tr class="nohover">
+                    <form id="jurnal_form" method="POST" class="form-inline">
+                        {% csrf_token %}
+                        <td ></td>
+                        <td width='190px'>{{ form.date }}</td>
+                        <td ></td>
+                        <td >{{ form.name }}</td>
+                        <td >{{ form.text_prich }}</td>
+                        <td >{{ form.time_exit }}</td>
+                        <td >{{ form.time_enter }}</td>
+                    </form>
+                </tr>      
+            </table>
+            <button form="jurnal_form" type="submit" class="btn btn-primary btn_right">Добавить</button>
+        </div>
+
+        {% endif %}
+ </div>
+{% endblock %}

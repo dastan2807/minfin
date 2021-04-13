@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <img src="img/fon.svg" id="fon_img">
+    <nav>
+        <div class="nav_left">
+            <h3>Министерство Экономики и Финансов Кыргызской Республики</h3>
+        </div>
+        <div class="nav_right">
+            <a class="nav_list_item" href="index.html">Главная</a>
+            <a class="nav_list_item" href="profcom.html">Профком</a>
+            <a class="nav_list_item" href="#">НПА</a>
+            <a class="nav_list_item" href="#">Поиск</a>
+            <a class="nav_list_item" href="#">Журнал выездов</a>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="npa_left">
+
+        <form>
+            <input type="text" class="form-control">
+            <input type="text" class="form-control">
+            <input type="date" class="form-control">
+            <input type="submit" class="btn btn-primary" value="Поиск">
+        </form>
+
+        <table class="table table-bordered table-hover ">
+            <tr>
+                <td colspan="3" class="npa_table bg" ><h5>Результат поиска</h5></td>
+            </tr>
+            <tr>
+                <th class="npa_table">Название</th>
+                <th class="npa_table">№</th>
+                <th class="npa_table">Дата</th>
+            </tr>
+            <tr>
+                <td> Документ Документ  </td>
+                <td class="align-middle text-center">N1234</td>
+                <td class="align-middle text-center">12.2.2021</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="npa_table bg" ><h5>Приказ</h5></td>
+            </tr>
+            <tr>
+                <th class="npa_table">Название</th>
+                <th class="npa_table">№</th>
+                <th class="npa_table">Дата</th>
+            </tr>
+             <tr>
+                <td> Документ  </td>
+                <td class="align-middle">N9873</td>
+                <td class="align-middle">5.2.2021</td>
+            </tr>
+             <tr>
+                <td colspan="3" class="npa_table bg" ><h5>НПА</h5></td>
+            </tr>
+            <tr>
+                <th class="npa_table">Название</th>
+                <th class="npa_table">№</th>
+                <th class="npa_table">Дата</th>
+            </tr>
+            <tr>
+                <td> Документ  </td>
+                <td class="align-middle">N1234</td>
+                <td class="align-middle">12.2.2021</td>
+            </tr>
+        </table> 
+    </div>
+
+
+    <div class="npa_right">
+        <div class="block_right ">
+            <table class="table table-striped">
+                <tr>
+                    <td><i>Инфо система Инфо система Инфо система</i></td>
+                    <td width="100px"><i>N1234</i></td>
+                    <td width="100px"><i>26.2.2021</i></td>
+                </tr>
+            </table>
+        </div>
+        <div class="block_right_pdf ">
+            <embed src= "img/ff.pdf" >
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="css/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        slideShow('.slider', {
+          isAutoplay: true
+        });
+    </script>
+</body>
+</html>

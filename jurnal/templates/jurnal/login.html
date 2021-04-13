@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    
+    <div class="form_center">
+        <form class="autoregisterform" method="POST">
+            {% csrf_token %}
+            {{form}} <br>
+            <input type="submit" class="btn btn-primary" value="Войти">
+        </form>
+    </div>
+{% endblock %}
