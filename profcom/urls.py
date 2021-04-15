@@ -9,7 +9,3 @@ urlpatterns = [
     path('item_2', views.item_2, name="item_2"),
     path('item_3', views.item_3, name="item_3")
 ]
-
-
-
-

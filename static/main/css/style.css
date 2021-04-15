@@ -104,9 +104,18 @@ nav .nav_right .nav_list_item .prof_group .prof_items:hover {
     box-shadow: 0px 0px 10px 3px rgba(158, 158, 158, 0.3);
 }
 .main_left {
-    margin: 130px 0 40px 2%;
+    margin: 130px 0 20px 2%;
     width: 38%;
     float: left;
+    overflow-x: auto;
+    height: 100vh;
+}
+.main_left::-webkit-scrollbar {
+    width: 0px;
+}
+.main_left::-webkit-scrollbar-thumb {
+    background: #A8A8A8; 
+    border-radius: 10px;
 }
 .main_left.main_left_index_2 {
     width: 32%;
@@ -166,10 +175,18 @@ nav .nav_right .nav_list_item .prof_group .prof_items:hover {
 /* ------------------------------------------ main_right ------------------------------------------ */
 
 .main_right {
-    margin: 130px 0 40px 2%;
+    margin: 130px 0 20px 2%;
     width: 56%;
     float: left;
-
+    overflow-x: auto;
+    height: 100vh;
+}
+.main_right::-webkit-scrollbar {
+    width: 0px;
+}
+.main_right::-webkit-scrollbar-thumb {
+    background: #A8A8A8; 
+    border-radius: 10px;
 }
 .main_right_index2{
     width: 62%;
@@ -225,6 +242,7 @@ nav .nav_right .nav_list_item .prof_group .prof_items:hover {
     background-color: rgba(255, 255, 255, 0.7); 
     color: rgb(0, 23, 99);
     margin-bottom: 40px;
+
 }
 .main_right table tr  .main_otd {
     padding:7px 0;
@@ -240,7 +258,6 @@ nav .nav_right .nav_list_item .prof_group .prof_items:hover {
     width: 135px;
     height: 160px;
 }
-
 
 
 /*--------------------------------- profcom ------------------------------------*/
