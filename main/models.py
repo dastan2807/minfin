@@ -42,7 +42,7 @@ class MainPersonUser(models.Model):
     email = models.EmailField('Email ')
     room = models.CharField('Кабинет ', max_length=10, blank=True, null=True)
     login = models.OneToOneField(User, on_delete=models.CASCADE)
-    rukovodstva = models.ForeignKey(Rukovodstva, on_delete = models.CASCADE, blank=True, null=True, related_name='rukovodstva')
+    rukovodstva = models.ForeignKey(Rukovodstva, on_delete = models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
