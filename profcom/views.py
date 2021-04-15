@@ -2,9 +2,6 @@ from django.shortcuts import render
 from . import models
 from django.template import Context, Template
 from django.http import HttpResponse
-from uuid import getnode as get_mac
-
-mac_value = get_mac()
 
 
 def item_1(request):
@@ -176,9 +173,10 @@ def item_2(request):
         except models.ProfOpros.DoesNotExist:
             parent_name = None
         golos_value = request.GET.get('golos')
+        client_ip = request.META['REMOTE_ADDR']
         
         if parent_name:
-            form = models.Golos(opros=parent_name, otvet=golos_value, mac=mac_value)
+            form = models.Golos(opros=parent_name, otvet=golos_value, mac=client_ip)
             if models.Golos.objects.filter(opros=form.opros, mac=form.mac):
                 alert = True
             else:
