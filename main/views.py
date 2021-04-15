@@ -126,7 +126,7 @@ def table_two(request):
 
              <tr class="nohover">
                 <td colspan="7" class="main_per_otd ">
-                    <h5>НАЧАЛЬНИК УПРАВЛЕНИЯ</h5>
+                    <h5>{{ main_person.rukovodstva }}</h5>
                 </td>
             </tr>
             <tr>
