@@ -29,8 +29,8 @@ class Rukovodstva(models.Model):
         return self.rukovodstva
 
     class Meta:
-        verbose_name = 'Добавление звание руководства '
-        verbose_name_plural = 'Добавление звание руководства'
+        verbose_name = 'Добавление руководства '
+        verbose_name_plural = 'Добавление руководства'
 
 class MainPersonUser(models.Model):
     name_job = models.OneToOneField(Name_job, related_name="main_job", on_delete = models.CASCADE)
