@@ -14,7 +14,7 @@ class JurnalCreate(LoginRequiredMixin, CreateView):
     template_name = 'jurnal/index.html'
     form_class = JurnalForm
     success_url = reverse_lazy('jurnal')
-    a = User.objects.get(username='jurnaladmin')
+    # a = User.objects.get(username='jurnaladmin')
     jurnal_all = Jurnal.objects.all().order_by('date')
 
     def form_valid(self, form):
@@ -26,7 +26,7 @@ class JurnalCreate(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         kwargs['search_filter'] = JurnalFilter()
-        kwargs['jurnal_admin'] = self.a
+        # kwargs['jurnal_admin'] = self.a
         kwargs['name_job'] = Name_job.objects.all()
         if self.request.GET:
             kwargs['jurnals'] = JurnalFilter(self.request.GET, queryset=self.jurnal_all).qs
