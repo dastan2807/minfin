@@ -19,8 +19,7 @@ class JurnalCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.author = se 
-        lf.request.user
+        self.object.author = self.request.user
         self.object.name_job = MainPersonUser.objects.get(login=self.request.user).name_job
         self.object.save()
         return super().form_valid(form)

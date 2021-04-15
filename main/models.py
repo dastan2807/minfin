@@ -22,6 +22,15 @@ class Name_otdel(models.Model):
         verbose_name = 'Добавление отделов'
         verbose_name_plural = 'Добавление отделов'
 
+class Rukovodstva(models.Model):
+    rukovodstva = models.CharField('Название: ', max_length=255)
+
+    def __str__(self):
+        return self.rukovodstva
+
+    class Meta:
+        verbose_name = 'Добавление звание руководства '
+        verbose_name_plural = 'Добавление звание руководства'
 
 class MainPersonUser(models.Model):
     name_job = models.OneToOneField(Name_job, related_name="main_job", on_delete = models.CASCADE)
@@ -33,6 +42,7 @@ class MainPersonUser(models.Model):
     email = models.EmailField('Email ')
     room = models.CharField('Кабинет ', max_length=10, blank=True, null=True)
     login = models.OneToOneField(User, on_delete=models.CASCADE)
+    rukovodstva = models.ForeignKey(Rukovodstva, on_delete = models.CASCADE, blank=True, null=True, related_name='rukovodstva')
 
     def __str__(self):
         return self.name
